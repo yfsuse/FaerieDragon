@@ -1,0 +1,7 @@
+NULL
+[u'aff_id', u'offer_id']
+[u'aff_id']
+[u'aff_manager',  u'aff_id', u'offer_id']
+[u'offer_id', u'hour']
+[u'aff_manager']
+[u'advertiser_id', u'offer_id']

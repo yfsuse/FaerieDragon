@@ -1,0 +1,2 @@
+{"settings":{"time":{"start":%d,"end":%d,"timezone":8},"data_source":"ymds_druid_datasource","report_id":"report-id","pagination":{"size":4000,"page":0}},"group":["offer_id"],"data":["click","conversion"],"filters":{"$and":{}},"sort":[]}
+{"settings":{"time":{"start":%d,"end":%d,"timezone":8},"data_source":"ymds_druid_datasource","report_id":"report-id","pagination":{"size":4000,"page":0}},"group":["offer_id","adv_sub2"],"data":["click","conversion"],"filters":{"$and":{}},"sort":[],"currency":USD}
