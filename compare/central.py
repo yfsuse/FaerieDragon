@@ -18,8 +18,8 @@ from mail import send_mail
 
 
 # global variable
-DRUID_QUERY = '/home/jeff/dianyi/DataCompare/extern/druidquery.list'
-MYSQL_QUERY = '/home/jeff/dianyi/DataCompare/extern/mysqlquery.list'
+DRUID_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/druidquery.list'
+MYSQL_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/mysqlquery.list'
 
 class Log(object):
 
@@ -33,7 +33,7 @@ class Log(object):
 
     def _set_log(self, logname):
         # create a handler for echo to file
-        fh = logging.FileHandler('/home/jeff/dianyi/DataCompare/log/%s.log' % logname)
+        fh = logging.FileHandler('/home/jeff/dianyi/FaerieDragon/log/%s.log' % logname)
         fh.setLevel(logging.DEBUG)
         # create a handler for echo to console
         ch = logging.StreamHandler()
@@ -50,7 +50,7 @@ class Log(object):
 class Control(object):
     def __init__(self):
         configparser = ConfigParser.ConfigParser()
-        configparser.read('/home/jeff/dianyi/DataCompare/config/yeahcpa.ini')
+        configparser.read('/home/jeff/dianyi/FaerieDragon/config/yeahcpa.ini')
         self.receiver = configparser.get('mail', 'receiver')
         try:
             self.click_max_offset = int(configparser.get('mail', 'click_max_offset'))

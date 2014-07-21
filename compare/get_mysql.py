@@ -11,7 +11,7 @@ import ConfigParser
 class mysql(object):
     def __init__(self):
         configparser = ConfigParser.ConfigParser()
-        configparser.read('/home/jeff/dianyi/DataCompare/config/yeahcpa.ini')
+        configparser.read('/home/jeff/dianyi/FaerieDragon/config/yeahcpa.ini')
         self.login_referer = configparser.get('mysql', 'login_referer')
         self.login_api = configparser.get('mysql', 'login_api')
         self.query_api = configparser.get('mysql', 'query_api')

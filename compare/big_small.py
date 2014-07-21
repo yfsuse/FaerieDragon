@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-BIG_SMALL_LIST = '/home/jeff/dianyi/DataCompare/extern/big_small_table.list'
+BIG_SMALL_LIST = '/home/jeff/dianyi/FaerieDragon/extern/big_small_table.list'
 
 from datetime import datetime, timedelta
 import urllib, urllib2
@@ -19,7 +19,7 @@ def get_query():
 class big_small(object):
     def __init__(self):
         configparser = ConfigParser.ConfigParser()
-        configparser.read('/home/jeff/dianyi/DataCompare/config/yeahcpa.ini')
+        configparser.read('/home/jeff/dianyi/FaerieDragon/config/yeahcpa.ini')
         self.receiver = configparser.get('mail', 'receiver')
         try:
             self.click_max_offset = int(configparser.get('mail', 'click_max_offset'))
