@@ -98,7 +98,7 @@ class Control(object):
         self.logger = Log(self.logname)._get_logger()
 
     def get_data(self):
-        # get date
+        # get data
         time_end = date.today()
         time_start = time_end + timedelta(days=-1)
         str_time_start, str_time_end = time_start.strftime('%Y-%m-%d'), time_end.strftime('%Y-%m-%d')
@@ -126,7 +126,6 @@ class Control(object):
 
         druid_data_json = {}
         for datas in druid_data[1:]:
-            # key = str(datas[:key_separator])
             key = str([unicode(data) for data in datas[:key_separator]])
             value = datas[key_separator:]
             druid_data_json[key] = value
