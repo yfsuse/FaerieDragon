@@ -20,7 +20,7 @@ MYSQL_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/mysqlquery.list'
 class druid(object):
     def __init__(self):
         self.query_url = 'http://resin-yeahmobi-214401877.us-east-1.elb.amazonaws.com:18080/report/report?'
-        self.query_template = '{"settings":{"report_id":"report_id-x008","return_format":"json","time":{"start":%d,"end":%d,"timezone":0},"data_source":"ymds_druid_datasource","pagination":{"size":50,"page":0}},"filters":{"$and":{"offer_id":{"$eq":13232}}},"data":["click", "conversion"],"group":%s}'
+        self.query_template = '{"settings":{"report_id":"report_id-x008","return_format":"json","time":{"start":%d,"end":%d,"timezone":0},"data_source":"ymds_druid_datasource","pagination":{"size":500,"page":0}},"filters":{"$and":{}},"data":["click", "conversion"],"group":%s}'
 
     @staticmethod
     def convert_to_timestamp(start, end): #unix timestamp
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     druider = druid()
     for query in druid_list:
         query = query.strip('\n')
-        print druider.get_druid_data('2014-7-10', '2014-7-11', query)
+        print druider.get_druid_data('2014-7-23', '2014-7-24', query)
 
 
 

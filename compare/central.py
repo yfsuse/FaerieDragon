@@ -71,12 +71,11 @@ class Control(object):
                          '4': 2,
                          '5': 1}
 
-        self.deltable = {'0':[0, 0],
+        self.deltable = {
                          '1':[1, 2],
-                         '2':[1, 1, 1],
+                         '2':[1],
                          '3':[2, 3],
-                         '4':[2],
-                         '5':[1, 1]}
+                         '4':[2]}
 
         self.am_json = {u'Kay Zhao':44,
                         u'Maria Xin':24,
@@ -90,6 +89,8 @@ class Control(object):
                         u'Andy Sun':34,
                         u'Alan Xu':54,
                         u'Grace Lee':2,
+                        u'owen Liu':56,
+                        u'Steven Wang':26,
                         u'unknown':0}
 
         self.druider = druid()
@@ -106,10 +107,13 @@ class Control(object):
             for index in range(6):
                 mysql_data = self.mysqler.get_mysql_data(str_time_start, str_time_end, json.loads(self.mysql_list[index].strip('\n')), timezone = 0)
                 druid_data = self.druider.get_druid_data(str_time_start, str_time_end, self.druid_list[index].strip('\n'), timezone = 0)
-                delindex_list = self.deltable.get(str(index))
-                for delindex in delindex_list:
-                    for data in mysql_data:
-                        del data[delindex]
+                delindex_list = self.deltable.get(str(index), '')
+                if not delindex_list:
+                    pass
+                else:
+                    for delindex in delindex_list:
+                        for data in mysql_data:
+                            del data[delindex]
                 self.check(mysql_data, druid_data, index, timezone)
 
     def check(self, mysql_data, druid_data, index, timezone=0):
@@ -130,7 +134,7 @@ class Control(object):
             value = datas[key_separator:]
             druid_data_json[key] = value
 
-        self.logger.info("................group : %s  filters: [offer_id=13232]" % mysql_data[0][:key_separator])
+        self.logger.info("----------------------------------------group : %s  filters: no fileter---------------------------------------" % mysql_data[0][:key_separator])
         for mysql_key in mysql_list_key:
             druid_key = mysql_key[:]
             if index == 3:

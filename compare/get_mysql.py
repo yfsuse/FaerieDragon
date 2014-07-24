@@ -59,11 +59,10 @@ class mysql(object):
             mysql_rsp_list = json.loads(crl.fp.getvalue())['data']['data']
         except KeyError, e:
             return []
-
         return mysql_rsp_list
 
 
 if __name__ == '__main__':
     mysqler = mysql()
-    print mysqler.get_mysql_data('2014-7-20', '2014-7-21',{"statistic[click]": "","statistic[conversion]":"","timezone": 0,"filters[offer_id]": "13232","limit": 1000})
+    print mysqler.get_mysql_data('2014-7-20', '2014-7-21',{"statistic[click]": "","statistic[conversion]":"","timezone": 0,"limit": 1000})
 
