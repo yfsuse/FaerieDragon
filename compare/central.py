@@ -91,6 +91,7 @@ class Control(object):
                         u'Grace Lee':2,
                         u'owen Liu':56,
                         u'Steven Wang':26,
+                        u'Amee Chen':16,
                         u'unknown':0}
 
         self.druider = druid()
