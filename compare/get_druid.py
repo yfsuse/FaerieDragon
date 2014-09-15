@@ -20,7 +20,7 @@ MYSQL_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/mysqlquery.list'
 class druid(object):
     def __init__(self):
         self.query_url = 'http://resin-yeahmobi-214401877.us-east-1.elb.amazonaws.com:18080/report/report?'
-        self.query_template = '{"settings":{"report_id":"report_id-x008","return_format":"json","time":{"start":%d,"end":%d,"timezone":0},"data_source":"ymds_druid_datasource","pagination":{"size":1000,"page":0}},"filters":{"$and":{}},"data":["click", "conversion"],"group":%s}'
+        self.query_template = '{"settings":{"report_id":"report_id-x008","return_format":"json","time":{"start":%d,"end":%d,"timezone":0},"data_source":"ymds_druid_datasource","pagination":{"size":10000,"page":0}},"filters":{"$and":{}},"data":["click", "conversion"],"group":%s}'
 
     @staticmethod
     def convert_to_timestamp(start, end): #unix timestamp

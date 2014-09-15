@@ -64,5 +64,5 @@ class mysql(object):
 
 if __name__ == '__main__':
     mysqler = mysql()
-    print mysqler.get_mysql_data('2014-7-20', '2014-7-21',{"statistic[click]": "","statistic[conversion]":"","timezone": 0,"limit": 1000})
+    print mysqler.get_mysql_data('2014-8-6', '2014-8-7',{"filters[offer_id]":"","statistic[click]": "","statistic[conversion]":"","timezone": 0,"limit": 1000})
 

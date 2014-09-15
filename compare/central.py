@@ -80,6 +80,7 @@ class Control(object):
         self.am_json = {u'Kay Zhao':44,
                         u'Maria Xin':24,
                         u'sunny yang':100017,
+                        u'sherry chen':100029,
                         u'Lena Liu':8,
                         u'Sara Xu':19,
                         u'Vivian Chang':38,
@@ -92,6 +93,7 @@ class Control(object):
                         u'owen Liu':56,
                         u'Steven Wang':26,
                         u'Amee Chen':16,
+                        u'Frank Wang':12,
                         u'unknown':0}
 
         self.druider = druid()
@@ -145,17 +147,19 @@ class Control(object):
             mysql_value, druid_value = mysql_data_json.get(str(mysql_key), [0, 0]), druid_data_json.get(str(druid_key), [0, 0])
             if not mysql_value == druid_value:
                 mysql_value_n, druid_value_n = np.array(mysql_value), np.array(druid_value)
-                click_offset = abs((mysql_value_n - druid_value_n)[0])
-                conv_offset = abs((mysql_value_n - druid_value_n)[1])
+                click_offset = (mysql_value_n - druid_value_n)[0]
+                conv_offset = (mysql_value_n - druid_value_n)[1]
+                abs_click_offset = abs((mysql_value_n - druid_value_n)[0])
+                abs_conv_offset = abs((mysql_value_n - druid_value_n)[1])
                 if mysql_value[0] == 0:
-                    click_offset_percentage = click_offset
+                    click_offset_percentage = abs_click_offset
                 else:
-                    click_offset_percentage = click_offset / mysql_value[0]
+                    click_offset_percentage = abs_click_offset / mysql_value[0]
                 if mysql_value[1] == 0:
-                    conv_offset_percentage = conv_offset
+                    conv_offset_percentage = abs_conv_offset
                 else:
-                    conv_offset_percentage = conv_offset / mysql_value[1]
-                runinfo = "{'group value': %35s, 'mysql_data': %15s, 'druid_data': %15s, 'click_offset':%5d, 'click_offset_percentage':%d%%, 'conv_offset':%5d, 'conv_offset_percentage':%d%%}" % (druid_key, str(mysql_value), str(druid_value), click_offset, 100 * click_offset_percentage, conv_offset, 100 * conv_offset_percentage)
+                    conv_offset_percentage = abs_conv_offset / mysql_value[1]
+                runinfo = "{'group by': %20s, 'mysql_data': %15s, 'druid_data': %15s, 'click_offset':%5d, 'conv_offset':%5d}" % (druid_key, str(mysql_value), str(druid_value), click_offset, conv_offset)
                 self.logger.info(runinfo)
                 if click_offset > self.click_max_offset or conv_offset > self.conv_max_offset:
                     mailinfo = "Mysql & DruidIO Cmpare: {'group value': %s, 'mysql_data': %s, 'druid_data': %s, 'click_offset':%d, 'click_offset_percentage':%d%%, 'conv_offset':%d, 'conv_offset_percentage':%d%%}" % (druid_key, str(mysql_value), str(druid_value), click_offset, 100 * click_offset_percentage, conv_offset, 100 * conv_offset_percentage)
