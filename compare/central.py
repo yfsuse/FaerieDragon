@@ -14,12 +14,12 @@ import numpy as np
 import logging
 import json
 import ConfigParser
-from mail import send_mail
+from common import  BASEDIR
 
 
 # global variable
-DRUID_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/druidquery.list'
-MYSQL_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/mysqlquery.list'
+DRUID_QUERY = BASEDIR + 'extern/druidquery.list'
+MYSQL_QUERY = BASEDIR + 'extern/mysqlquery.list'
 
 class Log(object):
 
@@ -33,7 +33,7 @@ class Log(object):
 
     def _set_log(self, logname):
         # create a handler for echo to file
-        fh = logging.FileHandler('/home/jeff/dianyi/FaerieDragon/log/%s.log' % logname)
+        fh = logging.FileHandler(BASEDIR + 'log/%s.log' % logname)
         fh.setLevel(logging.DEBUG)
         # create a handler for echo to console
         ch = logging.StreamHandler()
@@ -50,13 +50,7 @@ class Log(object):
 class Control(object):
     def __init__(self):
         configparser = ConfigParser.ConfigParser()
-        configparser.read('/home/jeff/dianyi/FaerieDragon/config/yeahcpa.ini')
-        self.receiver = configparser.get('mail', 'receiver')
-        try:
-            self.click_max_offset = int(configparser.get('mail', 'click_max_offset'))
-            self.conv_max_offset = int(configparser.get('mail', 'conv_max_offset'))
-        except ValueError:
-            self.click_max_offset, self.conv_max_offset = 50, 50
+        configparser.read(BASEDIR + 'config/yeahcpa.ini')
         fobj = open(DRUID_QUERY, 'r')
         self.druid_list = fobj.readlines()
         fobj.close()
@@ -161,9 +155,6 @@ class Control(object):
                     conv_offset_percentage = abs_conv_offset / mysql_value[1]
                 runinfo = "{'group by': %20s, 'mysql_data': %15s, 'druid_data': %15s, 'click_offset':%5d, 'conv_offset':%5d}" % (druid_key, str(mysql_value), str(druid_value), click_offset, conv_offset)
                 self.logger.info(runinfo)
-                if click_offset > self.click_max_offset or conv_offset > self.conv_max_offset:
-                    mailinfo = "Mysql & DruidIO Cmpare: {'group value': %s, 'mysql_data': %s, 'druid_data': %s, 'click_offset':%d, 'click_offset_percentage':%d%%, 'conv_offset':%d, 'conv_offset_percentage':%d%%}" % (druid_key, str(mysql_value), str(druid_value), click_offset, 100 * click_offset_percentage, conv_offset, 100 * conv_offset_percentage)
-                    send_mail(self.receiver, mailinfo)
 
 if __name__ == '__main__':
     controler = Control()

@@ -6,12 +6,13 @@ import json
 import pycurl
 import StringIO
 import ConfigParser
+from common import  BASEDIR
 
 
 class mysql(object):
     def __init__(self):
         configparser = ConfigParser.ConfigParser()
-        configparser.read('/home/jeff/dianyi/FaerieDragon/config/yeahcpa.ini')
+        configparser.read(BASEDIR + 'config/yeahcpa.ini')
         self.login_referer = configparser.get('mysql', 'login_referer')
         self.login_api = configparser.get('mysql', 'login_api')
         self.query_api = configparser.get('mysql', 'query_api')

@@ -12,10 +12,11 @@ import urllib2
 from datetime import date, timedelta
 import time
 from get_topquery import query
+from common import BASEDIR
 
 # global variable
-DRUID_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/druidquery.list'
-MYSQL_QUERY = '/home/jeff/dianyi/FaerieDragon/extern/mysqlquery.list'
+DRUID_QUERY = BASEDIR + 'extern/druidquery.list'
+MYSQL_QUERY = BASEDIR + 'extern/mysqlquery.list'
 
 class druid(object):
     def __init__(self):

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-BIG_SMALL_LIST = '/home/jeff/dianyi/FaerieDragon/extern/big_small_table.list'
+
 
 from datetime import datetime, timedelta
 import urllib, urllib2
@@ -8,7 +8,10 @@ import os
 import json
 from central import Log
 import ConfigParser
-from mail import send_mail
+from common import BASEDIR
+
+
+BIG_SMALL_LIST = BASEDIR + 'extern/big_small_table.list'
 
 def get_query():
     fobj = open(BIG_SMALL_LIST,'r')
@@ -19,13 +22,7 @@ def get_query():
 class big_small(object):
     def __init__(self):
         configparser = ConfigParser.ConfigParser()
-        configparser.read('/home/jeff/dianyi/FaerieDragon/config/yeahcpa.ini')
-        self.receiver = configparser.get('mail', 'receiver')
-        try:
-            self.click_max_offset = int(configparser.get('mail', 'click_max_offset'))
-            self.conv_max_offset = int(configparser.get('mail', 'conv_max_offset'))
-        except ValueError:
-            self.click_max_offset, self.conv_max_offset = 50, 50
+        configparser.read(BASEDIR + 'config/yeahcpa.ini')
         querys = get_query()
         self.small, self.big = querys[0], querys[1]
         self.starttime = (datetime.now()).strftime('%Y-%m-%d %H')
@@ -62,10 +59,6 @@ class big_small(object):
         conv_offset = self.big_convs - self.small_convs
         runinfo = '{"query_interval": %s, "big_table": %s, "small_table": %s, "click_offset":%s, "conv_offset": %s}' % (self.endtime,[self.big_clicks, self.big_convs],[self.small_clicks, self.small_convs], click_offset, conv_offset)
         self.logger.info(runinfo)
-        if abs(click_offset) > self.click_max_offset or abs(conv_offset) > self.conv_max_offset:
-            send_mail(self.receiver, 'Big & Small Table Cmpare: %s' % runinfo)
-
-
 
 if __name__ == '__main__':
     bm = big_small()
